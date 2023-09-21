@@ -21,15 +21,19 @@ public class Main {
             total += order;
         }
 
-        tip = total * percent;
+        total += 1;
+
+        tip = total * ((double) percent /100);
         totalWithTip = total + tip;
 
 
         System.out.println("---------------------------------");
         System.out.println("Total percentage: " + percent + "%");
-        System.out.println("Total Before Tip: " + (total + 1));
+        System.out.println("Total Before Tip: $" + total);
         System.out.println("Total Tip: $" + tip);
         System.out.println("Total bill with tip: $" + totalWithTip);
+        System.out.println("Per person cost before tip: $" + (total / people) );
+
 
     }
 }
