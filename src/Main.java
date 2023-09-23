@@ -1,5 +1,5 @@
+import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 public class Main {
@@ -9,9 +9,10 @@ public class Main {
         double totalWithTip = 0;
         double tip = 0;
 
-        String[] items = {};
+        List<String> itemsList = new ArrayList<>();
 
-        List<String> itemsList = Arrays.asList(items);
+        /*I learned to create and append a list here:
+         https://www.digitalocean.com/community/tutorials/java-list-add-addall-methods */
 
         Scanner scan = new Scanner(System.in);
         System.out.println("How many people are in your group: ");
@@ -26,7 +27,7 @@ public class Main {
             System.out.println("Enter a cost in dollars and cents, e.g. 12.50 (-1 to end): ");
             order = scan.nextDouble();
             scan.nextLine();
-            if (order == -1){
+            if (order == -1) {
                 break;
             }
             System.out.println("Enter the item: ");
@@ -36,29 +37,39 @@ public class Main {
             total += order;
         }
 
-        total += 1;
-
         tip = total * ((double) percent /100);
         totalWithTip = total + tip;
 
+        /*learned to round from:
+        https://youtu.be/nLDWeTz3Zgc */
 
+        total  = Math.round(total * 100)/100.0;
+        tip  = Math.round(tip * 100)/100.0;
+        totalWithTip = Math.round(totalWithTip * 100)/100.0;
+
+        double costByPerson = (total / people);
+        costByPerson = Math.round(costByPerson * 100)/100.0;
+
+        double tipByPerson = (tip / people);
+        tipByPerson = Math.round(tipByPerson * 100)/100.0;
+
+        double costPersonWithTip = (totalWithTip / people);
+        costPersonWithTip = Math.round(costPersonWithTip * 100)/100.0;
+
+        //receipt
         System.out.println("---------------------------------");
         System.out.println("Total percentage: " + percent + "%");
         System.out.println("Total Before Tip: $" + total);
         System.out.println("Total Tip: $" + tip);
         System.out.println("Total bill with tip: $" + totalWithTip);
-        System.out.println("Cost per person before tip: $" + (total / people) );
-        System.out.println("Tip per person: $" + (tip / people) );
-        System.out.println("Total cost per person: $" + (totalWithTip / people) );
+        System.out.println("Cost per person before tip: $" + costByPerson );
+        System.out.println("Tip per person: $" + tipByPerson );
+        System.out.println("Total cost per person: $" + costPersonWithTip );
         System.out.println("---------------------------------");
-        System.out.println("Items Ordered");
-        for (String food : itemsList){
-            System.out.println(food);
+        System.out.println("Items Ordered: ");
+        for (String items : itemsList) {
+            System.out.println(items);
         }
-
-
-
     }
-
 
 }
